@@ -32,10 +32,10 @@ class _Homepagestate extends State<Homepages> {
                 bottomLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20))),
         toolbarHeight: _deviceheight * 0.20,
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.green,
         title: const Text(
           "DAILY WORKS TO DO !!",
-          textAlign: TextAlign.right,
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.w700,
