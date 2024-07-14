@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:workely_app/allmodules/task_class.dart';
@@ -51,9 +53,9 @@ class _Homepagestate extends State<Homepages> {
   Widget _taskview() {
     return FutureBuilder(
       future: Hive.openBox("tasks"),
-      builder: (BuildContext _context, AsyncSnapshot _snapshot) {
-        if (_snapshot.hasData) {
-          _box = _snapshot.data;
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData) {
+          _box = snapshot.data;
           return _taskslist();
         } else {
           return const Center(child: CircularProgressIndicator());
@@ -66,8 +68,8 @@ class _Homepagestate extends State<Homepages> {
     List tasks = _box!.values.toList();
     return ListView.builder(
         itemCount: tasks.length,
-        itemBuilder: (BuildContext _context, int _index) {
-          var task = Task.fromMap(tasks[_index]);
+        itemBuilder: (BuildContext context, int index) {
+          var task = Task.fromMap(tasks[index]);
           return ListTile(
             title: Text(
               task.content,
@@ -89,13 +91,13 @@ class _Homepagestate extends State<Homepages> {
             onTap: () {
               task.done = !task.done;
               _box!.putAt(
-                _index,
+                index,
                 task.toMap(),
               );
               setState(() {});
             },
             onLongPress: () {
-              _box!.deleteAt(_index);
+              _box!.deleteAt(index);
               setState(() {});
             },
           );
@@ -123,20 +125,20 @@ class _Homepagestate extends State<Homepages> {
             content: TextField(
               onSubmitted: (_) {
                 if (_newTaskContent != null) {
-                  var _task = Task(
+                  var task = Task(
                       content: _newTaskContent!,
                       timestamp: DateTime.now(),
                       done: false);
-                  _box!.add(_task.toMap());
+                  _box!.add(task.toMap());
                   setState(() {
                     _newTaskContent = null;
                     Navigator.pop(context);
                   });
                 }
               },
-              onChanged: (_value) {
+              onChanged: (value) {
                 setState(() {
-                  _newTaskContent = _value;
+                  _newTaskContent = value;
                 });
               },
             ),
